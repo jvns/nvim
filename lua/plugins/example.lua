@@ -1,6 +1,39 @@
 -- since this is just an example spec, don't actually load anything here and return an empty spec
 -- stylua: ignore
-if true then return {} end
+
+if true then
+  return {
+    -- add solarized
+    {"shaunsingh/solarized.nvim"},
+    {
+      "LazyVim/LazyVim",
+      opts = {
+        colorscheme = "solarized",
+      },
+    },
+    {
+      "vimwiki/vimwiki",
+      event = "BufEnter *.md",
+      -- The keys that trigger the plugin
+      keys = { "<leader>ww", "<leader>wt" },
+      -- The configuration for the plugin
+      init = function()
+        vim.g.vimwiki_list = {
+          {
+            -- Here will be the path for your wiki
+            path = "~/work/wiki/",
+            auto_diary_index = 1,
+            -- The syntax for the wiki
+            syntax = "markdown",
+            ext = "md",
+          },
+        }
+        vim.g.vimwiki_ext2syntax = { }
+      end,
+    },
+
+  }
+end
 
 -- every spec file under the "plugins" directory will be loaded automatically by lazy.nvim
 --
