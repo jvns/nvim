@@ -3,19 +3,47 @@
 
 if true then
   return {
-    -- add solarized
-    {"shaunsingh/solarized.nvim"},
+  {
+    "RRethy/nvim-base16",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd('colorscheme base16-solarized-light') -- or base16-solarized-light
+    end,
+  },
     {
-      "LazyVim/LazyVim",
+      "hrsh7th/nvim-cmp",
       opts = {
-        colorscheme = "solarized",
+        window = {
+          completion = {
+            winblend = 0,  -- Make it completely opaque (0 = no transparency)
+          },
+          documentation = {
+            winblend = 0,  -- Also make documentation window opaque
+          },
+        },
+      },
+    },
+    {
+      "nvim-treesitter/nvim-treesitter",
+      opts = {
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      },
+    },
+    {
+      "neovim/nvim-lspconfig",
+      opts = {
+        inlay_hints = { enabled = false },
       },
     },
     {
       "vimwiki/vimwiki",
-      event = "BufEnter *.md",
       -- The keys that trigger the plugin
-      keys = { "<leader>ww", "<leader>wt" },
+      keys = { "<leader>ww", "<leader>w<leader>w" },
+      dir = "~/work/wiki/",
       -- The configuration for the plugin
       init = function()
         vim.g.vimwiki_list = {
